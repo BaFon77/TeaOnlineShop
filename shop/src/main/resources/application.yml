@@ -2,7 +2,7 @@ server:
   port: 0
 spring:
   application:
-    name: eclient
+    name: ECLIENT
   datasource:
     url: jdbc:postgresql://localhost:5432/project
     username: postgres
