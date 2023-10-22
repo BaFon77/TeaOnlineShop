@@ -18,9 +18,9 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public String addNewUser(@RequestBody UserCredential user) {
-        return service.saveUser((user));
+        return service.saveUser(user);
     }
 
     @PostMapping("/token")
