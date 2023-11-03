@@ -23,7 +23,7 @@ public class UserCredential {
 
     @Size(max = 50)
     @NotNull
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "username", nullable = false, length = 50)
     private String name;
 
     @Size(max = 50)

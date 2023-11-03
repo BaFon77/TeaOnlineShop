@@ -27,6 +27,9 @@ public class User {
     @Column(name = "lastname", nullable = false, length = 50)
     private String lastname;
 
+    @Column(name = "username", length = Integer.MAX_VALUE)
+    private String name;
+
     @Column(name = "shippingaddress", length = Integer.MAX_VALUE)
     private String shippingaddress;
 
@@ -39,6 +42,10 @@ public class User {
     @NotNull
     @Column(name = "passwordhash", nullable = false)
     private String passwordhash;
+
+    @Size(max = 12)
+    @Column(name = "phonenumber", nullable = false)
+    private String phonenumber;
 
     @Size(max = 20)
     @NotNull
