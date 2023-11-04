@@ -3,8 +3,10 @@ package com.example.security.config;
 import com.example.security.entity.UserCredential;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+
 
 public class CustomUserDetails implements UserDetails {
 
@@ -12,7 +14,7 @@ public class CustomUserDetails implements UserDetails {
     private String password;
 
     public CustomUserDetails(UserCredential userCredential) {
-        this.username = userCredential.getName();
+        this.username = userCredential.getUsername();
         this.password = userCredential.getPassword();
     }
 

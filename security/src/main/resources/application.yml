@@ -1,5 +1,6 @@
 server:
   port: 8795
+
 spring:
   application:
     name: SERVICE
@@ -18,3 +19,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8081/eureka
+
+jwt:
+  secret: a180867327e00ba07fd9cb7c64a877ddd5dc4d663df25b290bff522519545069
+  expiration: 86400000
+  refresh-token:
+    expiration: 604800000

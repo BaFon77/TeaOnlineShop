@@ -1,5 +1,6 @@
 package com.example.security.entity;
 
+import com.example.security.util.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,16 +25,14 @@ public class UserCredential {
     @Size(max = 50)
     @NotNull
     @Column(name = "username", nullable = false, length = 50)
-    private String name;
+    private String username;
 
     @Size(max = 50)
-    @NotNull
-    @Column(name = "firstname", nullable = false, length = 50)
+    @Column(name = "firstname", length = 50)
     private String firstname;
 
     @Size(max = 50)
-    @NotNull
-    @Column(name = "lastname", nullable = false, length = 50)
+    @Column(name = "lastname", length = 50)
     private String lastname;
 
     @Column(name = "shippingaddress", length = Integer.MAX_VALUE)
@@ -49,9 +48,10 @@ public class UserCredential {
     @Column(name = "passwordhash", nullable = false)
     private String password;
 
-    @Size(max = 20)
-    @NotNull
+//    @Size(max = 20)
+//    @NotNull
     @Column(name = "userrole", nullable = false, length = 20)
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
 }

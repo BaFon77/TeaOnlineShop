@@ -1,9 +1,11 @@
 package com.example.security.controller;
 
 import com.example.security.dto.AuthRequest;
-import com.example.security.entity.UserCredential;
+import com.example.security.dto.AuthenticationResponse;
+import com.example.security.dto.RegisterRequest;
 import com.example.security.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,8 +21,8 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public String addNewUser(@RequestBody UserCredential user) {
-        return service.saveUser(user);
+    public ResponseEntity<AuthenticationResponse> addNewUser(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.saveUser(request));
     }
 
     @PostMapping("/token")
