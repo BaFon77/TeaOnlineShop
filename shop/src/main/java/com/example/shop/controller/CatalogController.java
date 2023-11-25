@@ -2,6 +2,7 @@ package com.example.shop.controller;
 
 import com.example.shop.Service.*;
 
+import com.example.shop.dto.UserDto;
 import com.example.shop.entity.Order;
 import com.example.shop.entity.Product;
 import com.example.shop.entity.User;
@@ -18,39 +19,37 @@ public class CatalogController {
     @Autowired
     private CatalogService catalogService;
 
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/catalog/{category}")
     public List<Product> getProductsByCategory(@PathVariable String category) {
         return catalogService.getProductsByCategory(category);
     }
 
-    @Autowired
-    private OrderService orderService;
-
     @GetMapping("/orders")
-    public List<Order> getUserOrders(@RequestParam String username) {
-        // TODO Логика получения истории заказов и текущих заказов
+    public List<Order> getUserOrders(@RequestParam String username) { //TODO - add token verification
         return orderService.getUserOrders(username);
     }
 
     @PostMapping("/order/{order_id}")
     public ResponseEntity<Boolean> processOrder(@PathVariable Long order_id, @RequestBody User request) {
-        // TODO Логика оформления заказа
+        // TODO - The logic of ordering
         boolean isOrderProcessed = orderService.processOrder(order_id, request);
         return ResponseEntity.ok(isOrderProcessed);
     }
 
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/user/{username}")
-    public ResponseEntity<User> getUserProfile(@PathVariable String username) {
-        // TODO Логика загрузки личного кабинета пользователя
-        User user = userService.getUserByUsername(username);
+    @GetMapping("/user/{username}") //TODO - Differentiate the received profile data
+    public ResponseEntity<UserDto> getUserProfile(@PathVariable String username) {
+        UserDto user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
-
-    @Autowired
-    private ProductService productService;
 
     @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable String id) {
