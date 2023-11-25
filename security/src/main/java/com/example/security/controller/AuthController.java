@@ -25,15 +25,10 @@ public class AuthController {
         return ResponseEntity.ok(service.saveUser(request));
     }
 
-    @PostMapping("/token")
-    public String getToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getUsername()));
-        if (authentication.isAuthenticated()) {
-            return service.generateToken(authRequest.getUsername());
-        }
-        else {
-            throw new RuntimeException("invalid access");
-        }
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> getToken(@RequestBody AuthRequest authRequest) {
+        System.out.println(authRequest);
+        return ResponseEntity.ok(service.authenticate(authRequest));
     }
 
     @GetMapping("/validate")

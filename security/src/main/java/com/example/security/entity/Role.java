@@ -1,4 +1,4 @@
-package com.example.security.util;
+package com.example.security.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.security.util.Permission.ADMIN_READ;
-import static com.example.security.util.Permission.ADMIN_UPDATE;
-import static com.example.security.util.Permission.ADMIN_DELETE;
-import static com.example.security.util.Permission.ADMIN_CREATE;
-import static com.example.security.util.Permission.MANAGER_READ;
-import static com.example.security.util.Permission.MANAGER_UPDATE;
-import static com.example.security.util.Permission.MANAGER_DELETE;
-import static com.example.security.util.Permission.MANAGER_CREATE;
+import static com.example.security.entity.Permission.ADMIN_READ;
+import static com.example.security.entity.Permission.ADMIN_UPDATE;
+import static com.example.security.entity.Permission.ADMIN_DELETE;
+import static com.example.security.entity.Permission.ADMIN_CREATE;
+import static com.example.security.entity.Permission.MANAGER_READ;
+import static com.example.security.entity.Permission.MANAGER_UPDATE;
+import static com.example.security.entity.Permission.MANAGER_DELETE;
+import static com.example.security.entity.Permission.MANAGER_CREATE;
 
 
 @RequiredArgsConstructor

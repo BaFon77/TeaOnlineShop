@@ -1,4 +1,4 @@
-package com.example.security.util;
+package com.example.security.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

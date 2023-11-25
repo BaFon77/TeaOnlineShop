@@ -5,10 +5,12 @@ spring:
   application:
     name: SERVICE
   datasource:
-    url: jdbc:postgresql://95.165.128.247:7772/teaproject
+    url: jdbc:postgresql://localhost:5432/teaproject
     username: postgres
-    password: REQ72-3
+    password: postgres
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:

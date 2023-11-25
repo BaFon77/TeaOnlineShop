@@ -1,6 +1,5 @@
 package com.example.security.entity;
 
-import com.example.security.util.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -8,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -21,6 +22,9 @@ public class UserCredential {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Token> tokens;
 
     @Size(max = 50)
     @NotNull
