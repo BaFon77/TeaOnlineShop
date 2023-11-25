@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -28,14 +30,24 @@ public class CatalogController {
     @Autowired
     private UserService userService;
 
+    private String tokenUser;
+
     @GetMapping("/catalog/{category}")
     public List<Product> getProductsByCategory(@PathVariable String category) {
         return catalogService.getProductsByCategory(category);
     }
 
+    @GetMapping("/handle")
+    public ResponseEntity<String> handleToken(@RequestBody String text) {
+        tokenUser = text;
+        return ResponseEntity.ok("Текст успешно получен");
+    }
+
     @GetMapping("/orders")
     public List<Order> getUserOrders(@RequestParam String username) { //TODO - add token verification
-        return orderService.getUserOrders(username);
+        if (Objects.equals(username, tokenUser)) {
+            return orderService.getUserOrders(username);
+        } else return Collections.emptyList();
     }
 
     @PostMapping("/order/{order_id}")

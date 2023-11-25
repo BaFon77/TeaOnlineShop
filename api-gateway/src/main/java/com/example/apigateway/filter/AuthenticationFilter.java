@@ -1,12 +1,15 @@
 package com.example.apigateway.filter;
 
 import com.example.apigateway.util.JwtUtil;
+import io.jsonwebtoken.Claims;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -67,6 +70,17 @@ public class AuthenticationFilter implements GatewayFilter{
 
             if (jwtUtil.isExpired(token)) {
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
+            }
+
+            if (routeValidator.isYourOrders.test(request)){
+                String sub = jwtUtil.getClaims(token).SUBJECT;
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                HttpEntity<String> r = new HttpEntity<>(sub, headers);
+
+                String shopServiceUrl = "http://localhost:8090/api/handle";
+                String response = template.postForObject(shopServiceUrl, r, String.class);
+
             }
         }
         return chain.filter(exchange);

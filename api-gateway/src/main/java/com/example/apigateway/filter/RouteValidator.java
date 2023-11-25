@@ -19,4 +19,7 @@ public class RouteValidator {
             request -> openApiEndpoints
                     .stream()
                     .noneMatch(uri -> request.getURI().getPath().contains(uri));
+
+    public Predicate<ServerHttpRequest> isYourOrders = request -> request.getURI().getPath().contains("/orders");
+
 }
