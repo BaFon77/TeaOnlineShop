@@ -13,7 +13,7 @@ import java.util.List;
 public class OrderService {
     private OrderRepository orderRepository;
     public List<Order> getUserOrders(String username) {
-        return orderRepository.findByname(username);
+        return orderRepository.findByUserid(username);
     }
 
     public boolean processOrder(Long order_id, User request) {

@@ -4,7 +4,7 @@ spring:
   application:
     name: ECLIENT
   datasource:
-    url: jdbc:postgresql://95.165.128.247:7772/teaproject
+    url: jdbc:postgresql://185.248.17.143:7772/teaproject
     username: postgres
     password: REQ72-3
   jpa:
