@@ -16,9 +16,8 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
-    private User userid;
+    @Column(name = "userid")
+    private String userid;
 
     @Column(name = "orderdate")
     private Instant orderdate;

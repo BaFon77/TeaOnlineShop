@@ -6,15 +6,17 @@ import com.example.shop.dto.UserDto;
 import com.example.shop.entity.Order;
 import com.example.shop.entity.Product;
 import com.example.shop.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class CatalogController {
 
@@ -37,16 +39,17 @@ public class CatalogController {
         return catalogService.getProductsByCategory(category);
     }
 
-    @GetMapping("/handle")
+    @PostMapping("/handle")
     public ResponseEntity<String> handleToken(@RequestBody String text) {
         tokenUser = text;
         return ResponseEntity.ok("Текст успешно получен");
     }
 
     @GetMapping("/orders")
-    public List<Order> getUserOrders(@RequestParam String username) { //TODO - add token verification
-        if (Objects.equals(username, tokenUser)) {
-            return orderService.getUserOrders(username);
+    public List<Order> getUserOrders() { //TODO - add token verification
+        System.err.println("Текст успешно получен"+"\n"+tokenUser);
+        if (tokenUser != null) {
+            return orderService.getUserOrdersByUser(tokenUser);
         } else return Collections.emptyList();
     }
 

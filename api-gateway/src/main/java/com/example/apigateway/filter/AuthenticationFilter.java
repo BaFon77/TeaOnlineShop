@@ -2,14 +2,11 @@ package com.example.apigateway.filter;
 
 import com.example.apigateway.util.JwtUtil;
 import io.jsonwebtoken.Claims;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -73,14 +70,14 @@ public class AuthenticationFilter implements GatewayFilter{
             }
 
             if (routeValidator.isYourOrders.test(request)){
-                String sub = jwtUtil.getClaims(token).SUBJECT;
+                String jwtToken = token.split(" ")[1].trim();
+                String sub = jwtUtil.getClaims(jwtToken).get("sub", String.class);
+                String shopServiceUrl = "http://localhost:8090/api/handle";
+                System.err.println(jwtUtil.getClaims(token.split(" ")[1].trim()));
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
-                HttpEntity<String> r = new HttpEntity<>(sub, headers);
-
-                String shopServiceUrl = "http://localhost:8090/api/handle";
-                String response = template.postForObject(shopServiceUrl, r, String.class);
-
+                HttpEntity<String> requestEntity = new HttpEntity<>(sub, headers);
+                ResponseEntity<String> responseEntity = template.postForEntity(shopServiceUrl, requestEntity, String.class);
             }
         }
         return chain.filter(exchange);
@@ -95,9 +92,4 @@ public class AuthenticationFilter implements GatewayFilter{
     private boolean authMissing(ServerHttpRequest request) {
         return !request.getHeaders().containsKey("Authorization");
     }
-
-
-//    public static class Config {
-//
-//    }
 }
