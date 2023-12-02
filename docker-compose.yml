@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8081:8081"
+    networks:
+      - general
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8084:8084"
+    networks:
+      - general
+  security:
+    build: ./security
+    ports:
+      - "8795:8795"
+    networks:
+      - general
+  shop:
+    build: ./shop
+    ports:
+      - "8090:8090"
+    networks:
+      - general
+networks:
+  general:
+    name: general
+    driver: bridge

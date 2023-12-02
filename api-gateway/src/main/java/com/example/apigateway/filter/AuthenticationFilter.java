@@ -72,7 +72,7 @@ public class AuthenticationFilter implements GatewayFilter{
             if (routeValidator.isYourOrders.test(request)){
                 String jwtToken = token.split(" ")[1].trim();
                 String sub = jwtUtil.getClaims(jwtToken).get("sub", String.class);
-                String shopServiceUrl = "http://localhost:8090/api/handle";
+                String shopServiceUrl = "http://shop:8090/api/handle";
                 System.err.println(jwtUtil.getClaims(token.split(" ")[1].trim()));
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
