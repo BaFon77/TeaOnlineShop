@@ -2,6 +2,7 @@ package com.example.security.service;
 
 import com.example.security.dto.AuthRequest;
 import com.example.security.dto.AuthenticationResponse;
+import com.example.security.dto.ProfileResponse;
 import com.example.security.dto.RegisterRequest;
 import com.example.security.entity.UserCredential;
 import com.example.security.repository.UserCredentialRepository;
@@ -9,8 +10,11 @@ import com.example.security.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {

@@ -40,7 +40,8 @@ public class AuthConfig {
 //                        .sessionAuthenticationStrategy(((authentication, request, response) -> {})))
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/auth/register", "/auth/login", "/auth/validate").permitAll())
+                                .requestMatchers("/auth/register", "/auth/login", "/auth/validate", "/auth/profile").permitAll()
+                                .requestMatchers("/auth/profile").authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
 //                .logout(logout ->

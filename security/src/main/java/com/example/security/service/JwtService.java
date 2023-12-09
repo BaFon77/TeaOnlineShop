@@ -52,4 +52,8 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+    }
 }

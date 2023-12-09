@@ -52,6 +52,10 @@ public class UserCredential {
     @Column(name = "passwordhash", nullable = false)
     private String password;
 
+    @Size(max = 12)
+    @Column(name = "phonenumber", nullable = false)
+    private String phoneNumber;
+
 //    @Size(max = 20)
 //    @NotNull
     @Column(name = "userrole", nullable = false, length = 20)
