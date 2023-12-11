@@ -2,8 +2,7 @@ package com.example.shop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -24,15 +23,15 @@ public class Orderedproduct {
     @JoinColumn(name = "productid")
     private Product productid;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "unitprice", nullable = false, precision = 10, scale = 2)
     private BigDecimal unitprice;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
 

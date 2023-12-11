@@ -2,8 +2,7 @@ package com.example.shop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -24,8 +23,8 @@ public class Payment {
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @jakarta.validation.constraints.Size(max = 50)
-    @jakarta.validation.constraints.NotNull
+    @Size(max = 50)
+    @NotNull
     @Column(name = "paymentmethod", nullable = false, length = 50)
     private String paymentmethod;
 

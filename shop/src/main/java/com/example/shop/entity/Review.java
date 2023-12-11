@@ -2,8 +2,7 @@ package com.example.shop.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
 
 @Data
 @Entity
@@ -21,11 +20,11 @@ public class Review {
     @JoinColumn(name = "userid")
     private User userid;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "reviewtext", nullable = false, length = Integer.MAX_VALUE)
     private String reviewtext;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "rating", nullable = false)
     private Integer rating;
 

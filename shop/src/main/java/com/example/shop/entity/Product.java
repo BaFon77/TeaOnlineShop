@@ -5,8 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+
 
 import java.math.BigDecimal;
 
@@ -18,32 +18,32 @@ public class Product {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @jakarta.validation.constraints.Size(max = 255)
-    @jakarta.validation.constraints.NotNull
+    @Size(max = 255)
+    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description", length = Integer.MAX_VALUE)
     private String description;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @jakarta.validation.constraints.Size(max = 50)
-    @jakarta.validation.constraints.NotNull
-    @Column(name = "category", nullable = false, length = 50)
+    @Size(max = 50)
+    @NotNull
+    @Column(name = "categoryid", nullable = false, length = 50)
     private String category;
 
-    @jakarta.validation.constraints.Size(max = 20)
+    @Size(max = 20)
     @Column(name = "weightvolume", length = 20)
     private String weightvolume;
 
-    @jakarta.validation.constraints.NotNull
+    @NotNull
     @Column(name = "instock", nullable = false)
     private Boolean instock = false;
 
-    @jakarta.validation.constraints.Size(max = 255)
+    @Size(max = 255)
     @Column(name = "photourl")
     private String photourl;
 

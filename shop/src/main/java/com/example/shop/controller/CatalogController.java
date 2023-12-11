@@ -3,6 +3,7 @@ package com.example.shop.controller;
 import com.example.shop.Service.*;
 
 import com.example.shop.dto.UserDto;
+import com.example.shop.entity.Articles;
 import com.example.shop.entity.Order;
 import com.example.shop.entity.Product;
 import com.example.shop.entity.User;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -22,6 +24,9 @@ public class CatalogController {
 
     @Autowired
     private CatalogService catalogService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @Autowired
     private ProductService productService;
@@ -47,7 +52,7 @@ public class CatalogController {
 
     @GetMapping("/orders")
     public List<Order> getUserOrders() { //TODO - add token verification
-        System.err.println("Текст успешно получен"+"\n"+tokenUser);
+        System.err.println("Текст успешно получен" + "\n" + tokenUser);
         if (tokenUser != null) {
             return orderService.getUserOrdersByUser(tokenUser);
         } else return Collections.emptyList();
@@ -60,7 +65,7 @@ public class CatalogController {
         return ResponseEntity.ok(isOrderProcessed);
     }
 
-    @GetMapping("/user/{username}") //TODO - Differentiate the received profile data
+    @GetMapping("/user/{username}")
     public ResponseEntity<UserDto> getUserProfile(@PathVariable String username) {
         UserDto user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
@@ -70,5 +75,63 @@ public class CatalogController {
     public ResponseEntity<Product> getProductById(@PathVariable String id) {
         Product product = productService.getProductById(Integer.parseInt(id));
         return ResponseEntity.ok(product);
+    }
+
+    @PostMapping("/product/add")
+    public ResponseEntity<Boolean> setProductById(@RequestBody Product product) {
+        boolean result = false;
+        if (
+                Objects.equals(userService.getUserRole(tokenUser), "ADMIN") ||
+                Objects.equals(userService.getUserRole(tokenUser), "admin")
+        ) {
+            result = productService.createProduct(product);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<Boolean> deleteProductById(@PathVariable int id) {
+        boolean result = false;
+        if (
+                Objects.equals(userService.getUserRole(tokenUser), "ADMIN") ||
+                Objects.equals(userService.getUserRole(tokenUser), "admin")
+        ) {
+            result = productService.deleteProduct(id);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    //TODO добавление статей
+
+    @PostMapping("/article/add")
+    public ResponseEntity<Boolean> setArticleById(@RequestBody Articles article) {
+        boolean result = false;
+        if (
+                Objects.equals(userService.getUserRole(tokenUser), "MANAGER") ||
+                Objects.equals(userService.getUserRole(tokenUser), "manager") ||
+                Objects.equals(userService.getUserRole(tokenUser), "ADMIN")   ||
+                Objects.equals(userService.getUserRole(tokenUser), "admin")
+        ) {
+            result = articleService.createArticle(article);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/article/{id}")
+    public ResponseEntity<Boolean> deleteArticleById(@PathVariable long id) {
+        boolean result = false;
+        if (
+                Objects.equals(userService.getUserRole(tokenUser), "MANAGER") ||
+                Objects.equals(userService.getUserRole(tokenUser), "manager")
+        ) {
+            result = articleService.deleteArticle(id);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/article/{id}")
+    public ResponseEntity<Articles> getArticleById(@PathVariable String id) {
+        Articles article = articleService.getArticleById(Integer.parseInt(id));
+        return ResponseEntity.ok(article);
     }
 }

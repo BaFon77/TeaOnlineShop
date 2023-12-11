@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
 
 @Data
 @Entity
@@ -16,8 +15,8 @@ public class Role {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @jakarta.validation.constraints.Size(max = 50)
-    @jakarta.validation.constraints.NotNull
+    @Size(max = 50)
+    @NotNull
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 

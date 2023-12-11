@@ -19,4 +19,6 @@ public class UserService {
     public User getPrivatUserData(String username) {
         return userRepository.findByName(username);
     }
+
+    public String getUserRole(String username){ return userRepository.findUserRoleByUsername(username);}
 }

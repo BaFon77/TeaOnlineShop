@@ -1,36 +1,38 @@
 package com.example.shop.Service;
+import com.example.shop.entity.Articles;
+import com.example.shop.repository.ArticlesRepository;
 
-import com.example.shop.entity.Product;
-import com.example.shop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
-public class ProductService {
+public class ArticleService {
     @Autowired
-    private ProductRepository productRepository;
-    public Product getProductById(int id) {
-        //TODO
-        return productRepository.findById(id);
+    private ArticlesRepository articlesRepository;
+
+    public Articles getArticleById(int id) {
+        return articlesRepository.findByArticleId(id);
     }
-    public boolean createProduct(Product product){
+
+    public boolean createArticle(Articles article) {
         try {
-            productRepository.saveAndFlush(product);
+            articlesRepository.saveAndFlush(article);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean deleteProduct(int id){
+    public boolean deleteArticle(long id){
         try {
-            productRepository.deleteById(id);
+            articlesRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-
 }
