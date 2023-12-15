@@ -3,10 +3,7 @@ package com.example.shop.controller;
 import com.example.shop.Service.*;
 
 import com.example.shop.dto.UserDto;
-import com.example.shop.entity.Articles;
-import com.example.shop.entity.Order;
-import com.example.shop.entity.Product;
-import com.example.shop.entity.User;
+import com.example.shop.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +39,23 @@ public class CatalogController {
     @GetMapping("/catalog/{category}")
     public List<Product> getProductsByCategory(@PathVariable String category) {
         return catalogService.getProductsByCategory(category);
+    }
+
+    @GetMapping("/catalog")
+    public List<Productcategory> getCatalog() {
+        return catalogService.getCatalog();
+    }
+
+    @PostMapping("/catalog")
+    public ResponseEntity<Boolean> setCatalog(@RequestBody Productcategory productcategory) {
+        boolean result = false;
+        if (
+                Objects.equals(userService.getUserRole(tokenUser), "ADMIN") ||
+                        Objects.equals(userService.getUserRole(tokenUser), "admin")
+        ) {
+            result = catalogService.createCategory(productcategory);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/handle")
