@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByName(String username);
-
     @Query(nativeQuery = true, value = """
     SELECT users.userrole
     FROM users

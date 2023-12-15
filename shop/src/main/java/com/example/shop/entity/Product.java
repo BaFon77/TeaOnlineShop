@@ -33,7 +33,7 @@ public class Product {
     @Size(max = 50)
     @NotNull
     @Column(name = "categoryid", nullable = false, length = 50)
-    private String category;
+    private int category;
 
     @Size(max = 20)
     @Column(name = "weightvolume", length = 20)
