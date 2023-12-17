@@ -46,6 +46,11 @@ public class CatalogController {
         return catalogService.getCatalog();
     }
 
+    @GetMapping("/products")
+    public List<Product> getProduct() {
+        return productService.getProduct();
+    }
+
     @PostMapping("/catalog")
     public ResponseEntity<Boolean> setCatalog(@RequestBody Productcategory productcategory) {
         boolean result = false;
